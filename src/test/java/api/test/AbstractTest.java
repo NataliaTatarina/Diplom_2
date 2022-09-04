@@ -1,10 +1,9 @@
-package diplom_api.test;
+package api.test;
 
-import diplom_api.pojo.Ingredients;
-import diplom_api.pojo.UserLogin;
-import diplom_api.pojo.UserRegister;
+import api.model.Ingredients;
+import api.util.UserLogin;
+import api.util.UserRegister;
 import io.restassured.RestAssured;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.RandomStringUtils;
 

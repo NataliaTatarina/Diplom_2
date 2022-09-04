@@ -1,13 +1,14 @@
-package diplom_api.test;
+package api.test;
 
-import diplom_api.pojo.UserLogin;
-import diplom_api.pojo.UserRegisterResponse;
+import api.util.UserLogin;
+import api.model.UserRegisterResponse;
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static diplom_api.proc.UserProc.*;
+import static api.client.UserProc.*;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.notNullValue;
@@ -31,6 +32,7 @@ public class LoginUserTest extends AbstractTest {
     // Успешная авторизация под существующим паролем
     // Проверить статус ответа
     @Test
+    @DisplayName("Успешная авторизация под существующим паролем - проверка статуса")
     public void loginCorrectUserStatusTest() {
         given()
                 .spec(requestSpec)
@@ -44,6 +46,7 @@ public class LoginUserTest extends AbstractTest {
 
     // Проверить возвращаемый response
     @Test
+    @DisplayName("Успешная авторизация под существующим паролем")
     public void loginCorrectUserResponseTest() {
         UserRegisterResponse userLoginResponse =
                 loginUserResponse(requestSpec, userLogin);
@@ -66,6 +69,7 @@ public class LoginUserTest extends AbstractTest {
     // Авторизация с неверным логином и паролем
     // Пользователь существует, email некорректный
     @Test
+    @DisplayName("Авторизация с неверным email")
     public void loginUserWithWrongEmailFallsTest() {
         UserLogin userLoginWithWrongEmail =
                 new UserLogin(testEmail + testEmail, testPassword);
@@ -74,6 +78,7 @@ public class LoginUserTest extends AbstractTest {
 
     // Пользователь существует, пароль некорректный
     @Test
+    @DisplayName("Авторизация с неверным паролем")
     public void loginUserWithWrongPasswordFallsTest() {
         UserLogin userLoginWithWrongPassword = new UserLogin(testEmail, testPassword + testPassword);
         loginUserWithOneWrongField(requestSpec, userLoginWithWrongPassword);

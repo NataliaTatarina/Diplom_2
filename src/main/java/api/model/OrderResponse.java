@@ -1,7 +1,5 @@
-package diplom_api.pojo;
+package api.model;
 
-
-import java.util.List;
 
 public class OrderResponse {
 private boolean success;

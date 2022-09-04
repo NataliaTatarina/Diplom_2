@@ -1,4 +1,4 @@
-package diplom_api.pojo;
+package api.model;
 
 public class Owner {
     String name;

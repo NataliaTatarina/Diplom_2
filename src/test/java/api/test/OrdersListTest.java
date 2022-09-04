@@ -1,19 +1,20 @@
-package diplom_api.test;
+package api.test;
 
-import diplom_api.pojo.OrderResponse;
-import diplom_api.pojo.OrdersList;
+import api.model.OrderResponse;
+import api.model.OrdersList;
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static diplom_api.proc.CreateOrderProc.createOrderResponse;
-import static diplom_api.proc.GetIngredientsProc.getIngredients;
-import static diplom_api.proc.GetOrdersListProc.getOrderList;
-import static diplom_api.proc.GetOrdersListProc.getOrderListResponse;
-import static diplom_api.proc.UserProc.createUserResponse;
-import static diplom_api.proc.UserProc.deleteUser;
+import static api.client.CreateOrderProc.createOrderResponse;
+import static api.client.GetIngredientsProc.getIngredients;
+import static api.client.GetOrdersListProc.getOrderList;
+import static api.client.GetOrdersListProc.getOrderListResponse;
+import static api.client.UserProc.createUserResponse;
+import static api.client.UserProc.deleteUser;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hamcrest.Matchers.notNullValue;
@@ -56,11 +57,13 @@ public class OrdersListTest extends AbstractTest {
 
     // Получить список заказов для авторизированного пользователя - проверить статус
     @Test
+    @DisplayName("Получение списка заказов для авторизированного пользователя - проверка статуса и ответа")
     public void getOrdersListForUserWithAuthStatusTest() {
         getOrderList(requestSpec, token, SC_OK, null, true);
       }
 
     @Test
+    @DisplayName("Получение списка заказов для авторизированного пользователя")
     public void getOrdersListForUserWithAuthResponseTest() {
         OrdersList ordersList = getOrderListResponse(requestSpec, token);
         // Убедиться. что вернулся ожидаемый JSON
@@ -73,6 +76,7 @@ public class OrdersListTest extends AbstractTest {
 
     // Получить список без авторизации
     @Test
+    @DisplayName("Получение списка заказов для не авторизированного пользователя - проверка статуса и ответа")
     public void getOrdersListForUserWithoutAuthTest() {
         getOrderList(requestSpec, "", SC_UNAUTHORIZED, "You should be authorised", false);
     }

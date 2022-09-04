@@ -1,14 +1,15 @@
-package diplom_api.test;
+package api.test;
 
-import diplom_api.pojo.UserLogin;
-import diplom_api.pojo.UserRegister;
-import diplom_api.pojo.UserRegisterResponse;
+import api.util.UserLogin;
+import api.util.UserRegister;
+import api.model.UserRegisterResponse;
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static diplom_api.proc.UserProc.*;
+import static api.client.UserProc.*;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
@@ -32,18 +33,21 @@ public class UpdateUser extends AbstractTest {
 
     // Изменение данных пользователя без авторизации
     @Test
+    @DisplayName("Изменение имени пользователя без авторизации - проверка статуса и ответа")
     public void updateUserNameWithoutAuthorizationFallsTest() {
         String json = "{\"name\": \"" + "Update" + testName + "\"}";
         updateUser(requestSpec, json, "", SC_UNAUTHORIZED, "You should be authorised", false);
     }
 
     @Test
+    @DisplayName("Изменение email пользователя без авторизации - проверка статуса и ответа")
     public void updateUserEmailWithoutAuthorizationFallsTest() {
         String json = "{\"email\": \"" + "Update" + testEmail + "\"}";
         updateUser(requestSpec, json, "", SC_UNAUTHORIZED, "You should be authorised", false);
     }
 
     @Test
+    @DisplayName("Изменение пароля пользователя без авторизации - проверка статуса и ответа")
     public void updateUserPasswordWithoutAuthorizationFallsTest() {
         String json = "{\"password\": \"" + "Update" + testPassword + "\"}";
         updateUser(requestSpec, json, "", SC_UNAUTHORIZED, "You should be authorised", false);
@@ -51,6 +55,7 @@ public class UpdateUser extends AbstractTest {
 
     // Изменение данных пользователя с авторизацией - проверка возвращаемого статуса
     @Test
+    @DisplayName("Изменение данных пользователя с авторизацией - проверка статуса и ответа")
     public void updateUserPasswordWithAuthorizationStatusTest() {
         String json = "{\"name\": \"" + "Update" + testName + "\", ";
         json = json + "\"email\": \"" + "Update" + testEmail + "\", ";
@@ -61,6 +66,7 @@ public class UpdateUser extends AbstractTest {
     // Изменение данных пользователя с авторизацией - проверка возвращаемого ответа
     // Корректно изменить имя
     @Test
+    @DisplayName("Изменение имени авторизированного пользователя")
     public void updateCorrectUserNameResponseTest() {
         String json = "{\"name\": \"" + "Update" + testName + "\"}";
         UserRegisterResponse userUpdateName =
@@ -74,6 +80,7 @@ public class UpdateUser extends AbstractTest {
 
     // Корректно изменить пароль
     @Test
+    @DisplayName("Изменение пароля авторизированного пользователя")
     public void updateCorrectUserPasswordResponseTest() {
         String json = "{\"password\": \"" + "Update" + testPassword + "\"}";
         UserRegisterResponse userUpdatePassword =
@@ -87,6 +94,7 @@ public class UpdateUser extends AbstractTest {
 
     // Корректно изменить email
     @Test
+    @DisplayName("Изменение email авторизированного пользователя")
     public void updateCorrectUserEmailResponseTest() {
         String json = "{\"email\": \"" + "Update" + testEmail + "\"}";
         UserRegisterResponse userUpdateEmail =
@@ -102,6 +110,7 @@ public class UpdateUser extends AbstractTest {
     // Попытаться установить ему email, который уже иcпользуется -
     // первым пользователем, созданным в Before
     @Test
+    @DisplayName("Изменение пароля авторизированного пользователя - попытка дублирования паролей")
     public void updateUserDuplicateEmailFallsStatusTest() {
         String json = "{\"email\": \"" + testEmail + "\"}";
         // Создать второго пользователя

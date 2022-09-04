@@ -1,6 +1,7 @@
-package diplom_api.proc;
+package api.client;
 
-import diplom_api.pojo.OrderResponse;
+import api.model.OrderResponse;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
@@ -8,6 +9,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class CreateOrderProc {
     // Запрос на создание заказа пользователем
+    @Step("Создание заказа пользователем - проверка статуса и ответа")
     public static void
     createOrder(RequestSpecification requestSpec, String token, String json,
                 int status, String message, boolean success) {
@@ -27,6 +29,7 @@ public class CreateOrderProc {
                         equalTo(success));
     }
 
+    @Step("Создание заказа пользователем")
     public static OrderResponse
     createOrderResponse(RequestSpecification requestSpec, String token, String json) {
         return given()

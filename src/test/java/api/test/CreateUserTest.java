@@ -1,11 +1,12 @@
-package diplom_api.test;
+package api.test;
 
-import diplom_api.pojo.UserRegister;
-import diplom_api.pojo.UserRegisterResponse;
+import api.util.UserRegister;
+import api.model.UserRegisterResponse;
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
-import static diplom_api.proc.UserProc.*;
+import static api.client.UserProc.*;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_FORBIDDEN;
 import static org.apache.http.HttpStatus.SC_OK;
@@ -17,6 +18,7 @@ public class CreateUserTest extends AbstractTest {
     // Создание уникального пользователя
     // Проверить возвращаемый статус
     @Test
+    @DisplayName("Создание уникального пользователя - проверка статуса")
     public void createCorrectUserStatusTest() {
         // Создать пользователя и проверить возвращаемый статус
         given()
@@ -37,6 +39,7 @@ public class CreateUserTest extends AbstractTest {
 
     // Проверить возвращаемый response
     @Test
+    @DisplayName("Создание уникального пользователя")
     public void createCorrectUserResponseTest() {
         // Создать пользователя
         UserRegisterResponse UserRegisterResponse =
@@ -55,6 +58,7 @@ public class CreateUserTest extends AbstractTest {
     // Нельзя создать 2 одинаковых пользователей
     // Проверить возвращаемый статус
     @Test
+    @DisplayName("Создание двух одинаковых пользователей")
     public void createTwoEqualUsersFallsTest() {
         // Создать первого  пользователя
         UserRegisterResponse userRegisterResponse =
@@ -82,6 +86,7 @@ public class CreateUserTest extends AbstractTest {
     // Нельзя создать пользователя, если не указано одно из обязательных полей
     // Попытка создать пользователя без указания email
     @Test
+    @DisplayName("Создание пользователя без указания email")
     public void createUserWithoutEmailFallsTest() {
         UserRegister userWithoutEmail = new UserRegister(null, testPassword, testName);
         createUserWithoutNecessaryField(requestSpec, userWithoutEmail);
@@ -89,6 +94,7 @@ public class CreateUserTest extends AbstractTest {
 
     // Попытка создать пользователя без указания пароля
     @Test
+    @DisplayName("Создание пользователя без указания пароля")
     public void createUserWithoutPasswordFallsTest() {
         UserRegister userWithoutPassword = new UserRegister(testEmail, null, testName);
         createUserWithoutNecessaryField(requestSpec, userWithoutPassword);
@@ -96,6 +102,7 @@ public class CreateUserTest extends AbstractTest {
 
     // Попытка создать пользователя без указания имени
     @Test
+    @DisplayName("Создание пользователя без указания имени")
     public void createUserWithoutNameFallsTest() {
         UserRegister userWithoutName = new UserRegister(testEmail, testPassword, null);
         createUserWithoutNecessaryField(requestSpec, userWithoutName);

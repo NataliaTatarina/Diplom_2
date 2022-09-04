@@ -1,14 +1,15 @@
-package diplom_api.proc;
+package api.client;
 
-import diplom_api.pojo.Ingredients;
+import api.model.Ingredients;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
 public class GetIngredientsProc {
     // Получение списка ингредиентов
-    public static Ingredients getIngredients (RequestSpecification requestSpec)
-    {
+    @Step("Получение списка ингредиентов")
+    public static Ingredients getIngredients(RequestSpecification requestSpec) {
         return
                 given()
                         .spec(requestSpec)

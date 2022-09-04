@@ -1,15 +1,16 @@
-package diplom_api.proc;
+package api.client;
 
-import diplom_api.pojo.OrdersList;
+import api.model.OrdersList;
+import io.qameta.allure.Step;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
 
 import static io.restassured.RestAssured.given;
 
 public class GetOrdersListProc {
-    public static OrdersList getOrderListResponse(RequestSpecification requestSpec, String token)
-    {
-       return given()
+    @Step("Получения списка заказов пользователя")
+    public static OrdersList getOrderListResponse(RequestSpecification requestSpec, String token) {
+        return given()
                 .spec(requestSpec)
                 .and()
                 .auth().oauth2(token)
@@ -19,9 +20,9 @@ public class GetOrdersListProc {
                 .as(OrdersList.class);
     }
 
+    @Step("Получения списка заказов пользователя - проверка статуса и ответа")
     public static void getOrderList(RequestSpecification requestSpec, String token,
-                                    int status, String message, boolean success)
-    {
+                                    int status, String message, boolean success) {
         given()
                 .spec(requestSpec)
                 .and()

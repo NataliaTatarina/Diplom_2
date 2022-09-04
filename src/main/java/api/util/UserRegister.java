@@ -1,4 +1,4 @@
-package diplom_api.pojo;
+package api.util;
 
 public class UserRegister {
 
